@@ -78,8 +78,16 @@ _start_32:
 	orl $(1 << 31), %eax
 	mov %eax, %cr0
 
-	sti			//开中断
-	jmp .
+	
+
+	push $APP_DATA_SEG			//SS
+	push $task0_dpl3_stack + 1024 *4						//ESP
+	push $0						//0x202					//EFLAGES
+	push $APP_CODE_SEG			//CS
+	push $task_0_entry			//EIP
+	
+	iret			//中断返回
+
 
 timer_int:
 
@@ -94,6 +102,15 @@ timer_int:
 	pop %ds
 
 	iret			//中断返回指令
+
+task_0_entry:
+	mov $APP_DATA_SEG, %ax
+	mov %ax, %ds
+	mov %ax, %es
+	mov %ax, %gs
+	mov %ax, %fs
+	jmp .
+
 
 gdt_desc:
 	.word(256*8) - 1
