@@ -184,7 +184,7 @@ _start_32:
 	mov %eax, %cr0
     7e31:	0f 22 c0             	mov    %eax,%cr0
 
-	mov $TASK0_TSS_SEL, %ax
+	mov $TASK0_TSS_SEG, %ax
     7e34:	66 b8 28 00          	mov    $0x28,%ax
 	ltr %ax
     7e38:	0f 00 d8             	ltr    %ax
@@ -305,7 +305,7 @@ void task_1(){
     7eaa:	eb f4                	jmp    7ea0 <task_1+0xa>
 
 00007eac <outb>:
-	[TASK1_TSS_SEL / 8] = {0x68, 0, 0xe900, 0}, 
+	[TASK1_TSS_SEG / 8] = {0x68, 0, 0xe900, 0}, 
 
 };
 
@@ -333,9 +333,9 @@ void task_sched(){
     7ecb:	55                   	push   %ebp
     7ecc:	89 e5                	mov    %esp,%ebp
     7ece:	83 ec 10             	sub    $0x10,%esp
-	static int task_tss = TASK0_TSS_SEL;
+	static int task_tss = TASK0_TSS_SEG;
 
-	task_tss = (task_tss == TASK0_TSS_SEL) ? TASK1_TSS_SEL : TASK0_TSS_SEL;
+	task_tss = (task_tss == TASK0_TSS_SEG) ? TASK1_TSS_SEG : TASK0_TSS_SEG;
     7ed1:	a1 e8 d8 00 00       	mov    0xd8e8,%eax
     7ed6:	83 f8 28             	cmp    $0x28,%eax
     7ed9:	75 07                	jne    7ee2 <task_sched+0x17>
@@ -459,10 +459,10 @@ void os_init (void){
     7ff7:	00 8e 
 	
 
-	gdt_table[TASK0_TSS_SEL / 8].basel = (uint16_t)(uint32_t)task0_tss;
+	gdt_table[TASK0_TSS_SEG / 8].basel = (uint16_t)(uint32_t)task0_tss;
     7ff9:	b8 00 d0 00 00       	mov    $0xd000,%eax
     7ffe:	66 a3 12 d1 00 00    	mov    %ax,0xd112
-	gdt_table[TASK1_TSS_SEL / 8].basel = (uint16_t)(uint32_t)task1_tss;
+	gdt_table[TASK1_TSS_SEG / 8].basel = (uint16_t)(uint32_t)task1_tss;
     8004:	b8 80 d0 00 00       	mov    $0xd080,%eax
     8009:	66 a3 1a d1 00 00    	mov    %ax,0xd11a
 

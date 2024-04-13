@@ -78,7 +78,7 @@ _start_32:
 	orl $(1 << 31), %eax
 	mov %eax, %cr0
 
-	mov $TASK0_TSS_SEL, %ax
+	mov $TASK0_TSS_SEG, %ax
 	ltr %ax
 
 	push $APP_DATA_SEG			//SS

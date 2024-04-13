@@ -81,8 +81,8 @@ struct{uint16_t limitl, basel, basemid_attr, limith_baseh;} gdt_table[256] __att
 	[APP_CODE_SEG / 8] = {0xffff, 0x0000, 0xfa00, 0x00cf},
 	[APP_DATA_SEG / 8] = {0xffff, 0x0000, 0xf300, 0x00cf},
 
-	[TASK0_TSS_SEL / 8] = {0x68, 0, 0xe900, 0}, 
-	[TASK1_TSS_SEL / 8] = {0x68, 0, 0xe900, 0}, 
+	[TASK0_TSS_SEG / 8] = {0x68, 0, 0xe900, 0}, 
+	[TASK1_TSS_SEG / 8] = {0x68, 0, 0xe900, 0}, 
 
 };
 
@@ -92,9 +92,9 @@ void outb (uint8_t data, uint16_t port){
 }
 
 void task_sched(){
-	static int task_tss = TASK0_TSS_SEL;
+	static int task_tss = TASK0_TSS_SEG;
 
-	task_tss = (task_tss == TASK0_TSS_SEL) ? TASK1_TSS_SEL : TASK0_TSS_SEL;
+	task_tss = (task_tss == TASK0_TSS_SEG) ? TASK1_TSS_SEG : TASK0_TSS_SEG;
 	uint32_t addr[] = {0, task_tss};
 	__asm__ __volatile__("ljmpl *(%[a])" :: [a]"r"(addr));
 }
@@ -131,8 +131,8 @@ void os_init (void){
 	idt_table[0x20].attr = 0x8E00;									//根据用户手册配置属性，指定表项为Interrupt Gate
 	
 
-	gdt_table[TASK0_TSS_SEL / 8].basel = (uint16_t)(uint32_t)task0_tss;
-	gdt_table[TASK1_TSS_SEL / 8].basel = (uint16_t)(uint32_t)task1_tss;
+	gdt_table[TASK0_TSS_SEG / 8].basel = (uint16_t)(uint32_t)task0_tss;
+	gdt_table[TASK1_TSS_SEG / 8].basel = (uint16_t)(uint32_t)task1_tss;
 
 
 	pg_dir[MAP_ADDR >> 22] = (uint32_t)page_table | PDE_P | PDE_W | PDE_U;
