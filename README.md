@@ -9,4 +9,4 @@
 1. image：虚拟磁盘镜像。
 2. os.xx：增加新功能不断迭代，虽然进行了版本控制，手动进行区分更加直观。
 3. 整体结构框图：项目整体结构图，但是中间实现过程与整体框图略有差异。
-4. diy-simpleos-200lines：原项目[源码]([lishutong1024/diy-200lines-os (github.com)](https://github.com/lishutong1024/diy-200lines-os))，原项目注释较为详细，时间原因，本项目将不再添加详细注释。
+4. diy-simpleos-200lines：原项目[源码](https://github.com/lishutong1024/diy-200lines-os)，原项目注释较为详细，时间原因，本项目将不再添加详细注释。
