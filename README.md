@@ -2,7 +2,7 @@
 
 **在Inter X86保护模式下实现的两个进程切换的简单操作系统**
 
-项目源自：[李述铜-用200行代码快速学习x86保护模式编程](https://app7ulykyut1996.pc.xiaoe-tech.com/p/t_pc/course_pc_detail/column/p_63a65325e4b06159f72462ea?product_id=p_63a65325e4b06159f72462ea)、[GitHub]([lishutong1024/diy-200lines-os (github.com)](https://github.com/lishutong1024/diy-200lines-os))
+项目源自：[李述铜-用200行代码快速学习x86保护模式编程](https://app7ulykyut1996.pc.xiaoe-tech.com/p/t_pc/course_pc_detail/column/p_63a65325e4b06159f72462ea?product_id=p_63a65325e4b06159f72462ea)、[GitHub](https://github.com/lishutong1024/diy-200lines-os)
 
 ## 目录说明
 
